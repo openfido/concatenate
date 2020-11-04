@@ -4,7 +4,7 @@ This pipeline concatenates the contents of the input and writes it to the output
 
 INPUTS
 
-  List of input files to be concatenated.
+  List of input files to be concatenated. If input is omitted, input is read to /dev/stdin.
 
 OUTPUTS
 
@@ -18,7 +18,7 @@ OPTIONS
 import os, csv, pandas
 def main(inputs,outputs,options):
 	if not inputs:
-		raise Exception("missing inputs")
+		inputs = ["/dev/stdin"]
 	if outputs:
 		if len(outputs) > 1 :
 			raise Exception("too many outputs")
