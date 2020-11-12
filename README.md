@@ -1,3 +1,5 @@
+OpenFIDO concatenate pipeline
+
 This pipeline concatenates the contents of the input and writes it to the output
 
 INPUTS
@@ -9,4 +11,7 @@ OUTPUTS
   List of transposed output files. If output omitted, output is written to /dev/stdout.
 
 OPTIONS
+
+  -i|--inplace   write outputs to inputs (output file list is ignored)
+
 
