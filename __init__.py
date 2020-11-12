@@ -15,21 +15,13 @@ OPTIONS
   -i|--inplace   write outputs to inputs (output file list is ignored)
 
 """
-import os, csv, pandas
 def main(inputs,outputs,options):
-	if not inputs:
-		inputs = ["/dev/stdin"]
-	if outputs:
-		if len(outputs) > 1 :
-			raise Exception("too many outputs")
-	else:
-		outputs = ["/dev/stdout"]
-	result = []
+	import openfido_util as of
+	import pandas as pd
+	of.setup_io(inputs,outputs)
+	data = []
 	for file in inputs:
-		if not file:
-			raise Exception("missing input")
-		data = pandas.read_csv(file,header=None)
-		result.append(data)
-	result = pandas.DataFrame(pandas.concat(result))
-	result.to_csv(outputs[0],header=False,index=False)
-	return result
+		data.append(of.read_input(file,options))
+	result = pd.concat(data)
+	of.write_output(result,outputs[0],options)
+	return {outputs[0],result}
